@@ -1,21 +1,22 @@
 import React from 'react';
 import { Container } from './styles';
 import logo from '../../assets/logo.svg';
+import {Link} from 'react-router-dom'
 
 const Header: React.FC = () => {
   return (
     <Container>
-      <a href="/">
+      <Link to="/">
         <img src={logo} alt="teste-verzel" />
-      </a>
+      </Link>
       <div>
         <div>
-          <a href="/signin">
+          <Link to="/signin">
             Entrar
-          </a>
-          <a href="/signin">
+          </Link>
+          <Link to="/signup">
             Cadastrar
-          </a>
+          </Link>
         </div>
       </div>
     </Container>
