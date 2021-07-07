@@ -6,6 +6,7 @@ interface IModuleProps {
 
 export const Container = styled.div`
   display: flex;
+  flex-direction: column;
   padding: 20px;
   margin: auto;
   width: 80%;
