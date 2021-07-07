@@ -25,6 +25,10 @@ export const Container = styled.div`
     -webkit-box-align: center;
     align-items: center;
 
+    p {
+      margin-right: 15px;
+    }
+
     a{
       font-size: 16px;
       font-weight: 600;
