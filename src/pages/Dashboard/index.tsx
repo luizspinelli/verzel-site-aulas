@@ -29,7 +29,7 @@ const Dashboard: React.FC = () => {
     }
 
     setActiveModule(module)
-  }, [])
+  }, [activeModule])
 
   useEffect(() => {
     api.get('/modules').then(response => {

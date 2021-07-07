@@ -1,13 +1,16 @@
 import React from 'react';
-import Dashboard from './pages/Dashboard';
-import GlobalStyle from './styles/global';
 import { BrowserRouter as Router } from 'react-router-dom';
+import GlobalStyle from './styles/global';
+import Routes from './routes';
+import AppContext from './hooks';
 
 function App() {
   return (
     <Router>
-      <Dashboard />
-      <GlobalStyle/>
+      <AppContext>
+        <Routes />
+      </AppContext>
+      <GlobalStyle />
     </Router>
   );
 }
