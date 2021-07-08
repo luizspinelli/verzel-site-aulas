@@ -29,9 +29,9 @@ $ cd verzel-site-aulas
 $ yarn
 
 # Rode o projeto
-$ yarn dev
+$ yarn start
 
-# O servidor irá começar em <http://localhost:3333>
+# O servidor irá começar em <http://localhost:3000>
 ```
 
 ## :memo: Licença ##
