@@ -1,6 +1,6 @@
 ## :dart: Sobre ##
 
-Api para consulta de CNPJs.
+Site para visualização de módulos e aulas, contendo login adm e funcionalidades de cadastro, alteração e exclusão quando logado.
 
 ## :rocket: Tecnologias ##
 
