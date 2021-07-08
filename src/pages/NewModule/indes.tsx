@@ -30,7 +30,7 @@ const NewModule: React.FC = () => {
             <div>
               <input type="text" placeholder="Nome" value={name} onChange={(e) => { setName(e.target.value) }} />
             </div>
-            <button onClick={handleSubmit}>Alterar</button>
+            <button onClick={handleSubmit}>Cadastrar</button>
           </form>
         </FormContainer>
       </Container>

@@ -96,8 +96,6 @@ export const Module = styled.button<IModuleProps>`
         color: rgb(59,212, 45);
       }
     }
-
-
   }
 
 
@@ -150,6 +148,17 @@ export const ModuleTitle = styled.div`
     background: rgb(156, 242, 127);
   }
 
+  a {
+      padding: 1px;
+      text-decoration: none;
+      svg {
+        margin-left: 10px;
+        color: rgb(59,212, 45);
+        width: 40px;
+        height: 40px;
+      }
+    }
+
   div {
     margin-left: 18px;
     h1 {
@@ -175,6 +184,9 @@ export const ClassesContent = styled.div`
 `;
 
 export const Class = styled.button`
+  display: flex;
+  align-items: center;
+  align-content: center;
   justify-content: space-between;
   background-color: rgb(36, 18, 75);
   border-radius: 32px;
@@ -185,6 +197,20 @@ export const Class = styled.button`
 
   &:hover {
     border: 2px solid rgb(59, 212, 45);
+  }
+
+  .optionsBox {
+    display: flex;
+    flex-direction: column;
+    a , button{
+      padding: 1px;
+      text-decoration: none;
+      background: transparent;
+      border: 0px;
+      svg {
+        color: rgb(59,212, 45);
+      }
+    }
   }
 
 `;

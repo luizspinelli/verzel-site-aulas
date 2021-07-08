@@ -34,7 +34,7 @@ const Dashboard: React.FC = () => {
     const check = window.confirm('Deseja deletar o módulo?');
     try {
       if (check) {
-        const newModules = modules.filter(module => module.id !== id).sort((a,b)=>{
+        const newModules = modules.filter(module => module.id !== id).sort((a, b) => {
           return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
         });
 
@@ -48,11 +48,30 @@ const Dashboard: React.FC = () => {
 
   }, [modules])
 
+  const handleDeleteClass = useCallback((id: string) => {
+    const check = window.confirm('Deseja deletar a aula?');
+    try {
+      if (check) {
+        api.delete(`class/${id}`);
+        const newActiveModule: IModule = {
+          id: activeModule?.id || '',
+          name: activeModule?.name || '',
+          classes: activeModule?.classes.filter(className => className.id !== id) || []
+        }
+
+        setActiveModule(newActiveModule)
+      }
+    } catch (error) {
+      alert(error.message)
+    }
+
+  }, [activeModule?.id, activeModule?.name, activeModule?.classes])
+
   useEffect(() => {
     api.get('/modules').then(response => {
       const data: IModule[] = response.data;
 
-      const orderModules = data.sort((a,b)=>{
+      const orderModules = data.sort((a, b) => {
         return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
       })
 
@@ -110,6 +129,11 @@ const Dashboard: React.FC = () => {
                 <h1>{activeModule?.name}</h1>
                 <p>Todas as aulas disponíveis nesse módulo:</p>
               </div>
+              {user &&
+                  <Link to={`/newClass`}>
+                    <FiPlusCircle />
+                  </Link>
+                }
             </ModuleTitle>
             <ClassesContent>
               {activeModule?.classes.map(className => (
@@ -117,6 +141,16 @@ const Dashboard: React.FC = () => {
                   <div>
                     {className.name}
                   </div>
+                  {user &&
+                    <div className="optionsBox">
+                      <Link to={`/editClass/${className.id}`}>
+                        <FiEdit />
+                      </Link>
+                      <button onClick={() => { handleDeleteClass(className.id) }}>
+                        <FiDelete />
+                      </button>
+                    </div>
+                  }
                 </Class>
               ))}
             </ClassesContent>
