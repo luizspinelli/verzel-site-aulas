@@ -1,27 +1,26 @@
-import React, { useCallback, useEffect } from "react";
-import { useState } from "react";
-import icone from '../../assets/icone.svg'
+import React, { useCallback, useEffect, useState } from "react";
+import { FiDelete, FiEdit, FiPlusCircle } from 'react-icons/fi';
+import { Link } from "react-router-dom";
+import icone from '../../assets/icone.svg';
 import Header from "../../components/Header";
+import { useAuth } from "../../hooks/auth";
 import { api } from "../../services/api";
-
-import { Container, Content, TitleContainer, ModulesContainer, ModulesContent, Module, ClassesContainer, ModuleTitle, ClassesContent, Class } from './styles'
-
+import { Class, ClassesContainer, ClassesContent, Container, Content, Module, ModulesContainer, ModulesContent, ModuleTitle, TitleContainer } from './styles';
 interface IModule {
   id: string;
   name: string;
   classes: IClass[];
 }
-
 interface IClass {
   id: string;
   name: string;
 }
 
-
-
 const Dashboard: React.FC = () => {
   const [modules, setModules] = useState<IModule[]>([])
   const [activeModule, setActiveModule] = useState<IModule>()
+
+  const { user } = useAuth()
 
   const handleClickModule = useCallback((module: IModule) => {
     if (activeModule?.id === module.id) {
@@ -29,13 +28,35 @@ const Dashboard: React.FC = () => {
     }
 
     setActiveModule(module)
-  }, [activeModule])
+  }, [activeModule]);
+
+  const handleDeleteModule = useCallback((id: string) => {
+    const check = window.confirm('Deseja deletar o módulo?');
+    try {
+      if (check) {
+        const newModules = modules.filter(module => module.id !== id).sort((a,b)=>{
+          return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+        });
+
+        setModules(newModules);
+
+        api.delete(`modules/${id}`)
+      }
+    } catch (error) {
+      alert(error.message)
+    }
+
+  }, [modules])
 
   useEffect(() => {
     api.get('/modules').then(response => {
-      const data = response.data;
+      const data: IModule[] = response.data;
 
-      setModules(data);
+      const orderModules = data.sort((a,b)=>{
+        return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+      })
+
+      setModules(orderModules);
 
     })
   }, []);
@@ -47,7 +68,14 @@ const Dashboard: React.FC = () => {
         <Content>
           <ModulesContainer>
             <TitleContainer>
-              <h1>Módulos</h1>
+              <div className="titleBox">
+                <h1>Módulos</h1>
+                {user &&
+                  <Link to={`/newModule`}>
+                    <FiPlusCircle />
+                  </Link>
+                }
+              </div>
               <p>Selecione o módulo para ver as aulas disponíveis</p>
               <ModulesContent>
                 {modules.map(moduleName => (
@@ -59,6 +87,17 @@ const Dashboard: React.FC = () => {
                         <span>{moduleName.classes.length} aulas</span>
                       </div>
                     </div>
+                    {user &&
+                      <div className="optionsBox">
+
+                        <Link to={`/editModule/${moduleName.id}`}>
+                          <FiEdit />
+                        </Link>
+                        <button onClick={() => { handleDeleteModule(moduleName.id) }}>
+                          <FiDelete />
+                        </button>
+                      </div>
+                    }
                   </Module>
                 ))}
               </ModulesContent>

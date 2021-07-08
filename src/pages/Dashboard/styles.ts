@@ -26,10 +26,27 @@ export const ModulesContainer = styled.div`
 `;
 
 export const TitleContainer = styled.div`
-  h1 {
-    font-size: 32px;
-    font-weight: 600;
-    color: rgb(240,245,255);
+  .titleBox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    h1 {
+      font-size: 32px;
+      font-weight: 600;
+      color: rgb(240,245,255);
+    }
+
+    a {
+      padding: 1px;
+      text-decoration: none;
+      svg {
+        margin-left: 10px;
+        color: rgb(59,212, 45);
+        width: 40px;
+        height: 40px;
+      }
+    }
   }
 
   p {
@@ -67,6 +84,22 @@ export const Module = styled.button<IModuleProps>`
   &:hover {
     border: 2px solid rgb(59, 212, 45);
   }
+
+  .optionsBox {
+    flex-direction: column;
+    a , button{
+      padding: 1px;
+      text-decoration: none;
+      background: transparent;
+      border: 0px;
+      svg {
+        color: rgb(59,212, 45);
+      }
+    }
+
+
+  }
+
 
   div {
     display: flex;

@@ -53,7 +53,7 @@ const SignUp: React.FC = () => {
               <FiLock />
               <input type="password" placeholder="Senha" value={password} onChange={(e) => { setPassword(e.target.value) }} />
             </div>
-            <button onClick={handleSubmit}>Entrar</button>
+            <button onClick={handleSubmit}>Cadastrar</button>
           </form>
         </FormContainer>
       </Container>
